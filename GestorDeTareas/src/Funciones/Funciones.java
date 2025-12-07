@@ -6,8 +6,6 @@ package Funciones;
 
 import javax.swing.table.DefaultTableModel;
 import Vista.VistaPrincipal;
-import java.awt.List;
-import java.util.ArrayList;
 
 /**
  *
@@ -58,5 +56,6 @@ public class Funciones {
         }
         return "Tarea-0" + cantidad;
     }
+    
     
 }
