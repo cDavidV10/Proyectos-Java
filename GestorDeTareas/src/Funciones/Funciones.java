@@ -6,6 +6,8 @@ package Funciones;
 
 import javax.swing.table.DefaultTableModel;
 import Vista.VistaPrincipal;
+import java.awt.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,7 +17,9 @@ public class Funciones {
     
     private DefaultTableModel tabla = new DefaultTableModel();
     private VistaPrincipal interfaz;
-    public void definirTabla(VistaPrincipal interfaz, String txt){
+
+    
+    public void definirTabla(VistaPrincipal interfaz, String txt, int cantidad){
     
         String[] columnas = {"Codigo", "Tarea", "Estado"};
         
@@ -23,7 +27,7 @@ public class Funciones {
         interfaz.getTablaTareas().setModel(tabla);
         
         Object[] datos = {
-            "001",
+            this.generarID(cantidad),
             txt,
             "Incompleto"
             
@@ -34,7 +38,25 @@ public class Funciones {
         
     }
     
-    public void generarID(){
+    public String eliminarEspacios(String txt){
+        String[] cadenas = txt.split("\\s+");
         
+        String textoFinal = String.join(" ", cadenas);
+        
+        return textoFinal;
+    
     }
+    
+    public String generarID(int cantidad){
+        String correlativo = String.valueOf(cantidad);
+        if(cantidad < 10){
+            return "Tarea-00" + correlativo;
+        }
+        
+        if(cantidad >= 10 && cantidad < 100){
+            return "Tarea-0" + cantidad;
+        }
+        return "Tarea-0" + cantidad;
+    }
+    
 }

@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorPrincipal implements ActionListener {
     private Vista.VistaPrincipal interfaz;
     private Funciones funciones = new Funciones();
-    public int filaSeleccionada;
+    public int filaSeleccionada, cantidad = 0;
     private DefaultTableModel tabla = new DefaultTableModel();
 
     public ControladorPrincipal(VistaPrincipal interfaz, Funciones funciones) {
@@ -36,7 +36,6 @@ public class ControladorPrincipal implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent evt){
                 filaSeleccionada = interfaz.getTablaTareas().getSelectedRow();
-                System.out.println(filaSeleccionada);
                 if(filaSeleccionada >= 0){
                     interfaz.getBtnCompletar().setVisible(true);
                     interfaz.getBtnEliminar().setVisible(true);
@@ -57,7 +56,9 @@ public class ControladorPrincipal implements ActionListener {
                 JOptionPane.showMessageDialog(interfaz, "El campo no puede ir vacio");
                 return;
             }
-            funciones.definirTabla(interfaz, interfaz.getTxtAgregar());
+            String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
+            cantidad++;
+            funciones.definirTabla(interfaz, txt, cantidad);
             interfaz.setTxtAgregar("");
         }
         
