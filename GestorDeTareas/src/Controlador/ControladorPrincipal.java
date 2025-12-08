@@ -5,6 +5,7 @@
 package Controlador;
 
 import Funciones.Funciones;
+import Funciones.Tareas;
 import Vista.VistaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ public class ControladorPrincipal implements ActionListener {
     private Funciones funciones = new Funciones();
     public int filaSeleccionada, cantidad = 0;
     private DefaultTableModel tabla = new DefaultTableModel();
+    Tareas tarea;
 
     public ControladorPrincipal(VistaPrincipal interfaz, Funciones funciones) {
         this.interfaz = interfaz;
@@ -60,9 +62,14 @@ public class ControladorPrincipal implements ActionListener {
                 JOptionPane.showMessageDialog(interfaz, "El campo no puede ir vacio");
                 return;
             }
-            String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
+            
             cantidad++;
-            funciones.definirTabla(interfaz, txt, cantidad);
+            String id = funciones.generarID(cantidad);
+            String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
+            
+            tarea = new Tareas(id, txt, "Incompleta");
+            funciones.llenarDatos(tarea);
+            funciones.definirTabla(interfaz);
             this.limpiarBtn();
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
