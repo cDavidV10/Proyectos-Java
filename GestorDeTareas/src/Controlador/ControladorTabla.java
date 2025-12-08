@@ -32,10 +32,11 @@ public class ControladorTabla implements ActionListener {
         viewTabla.getBtnEliminar().addActionListener(this);
         
         filaSeleccionada = -1;
-
+        
         viewTabla.getTablaTareas().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
+                System.out.println("Hola");
                 filaSeleccionada = viewTabla.getTablaTareas().getSelectedRow();
 
                 if (filaSeleccionada == -1) {

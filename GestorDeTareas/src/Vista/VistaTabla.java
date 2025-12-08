@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Controlador.ControladorTabla;
+import Funciones.Funciones;
 import java.awt.Color;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,8 +17,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class VistaTabla extends javax.swing.JFrame {
 
     private VistaPrincipal interfaz;
+    ControladorTabla tabla;
+    
     public VistaTabla() {
         initComponents();
+        Funciones funciones = new Funciones();
+        
+        tabla = new ControladorTabla(this, funciones);
         
         btnCompletar.setVisible(false);
         btnEliminar.setVisible(false);
