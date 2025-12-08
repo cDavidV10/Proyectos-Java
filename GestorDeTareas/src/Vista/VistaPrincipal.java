@@ -7,6 +7,7 @@ package Vista;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import Controlador.ControladorPrincipal;
+import Vista.VistaTabla;
 import Funciones.Funciones;
 import java.awt.Color;
 
@@ -19,20 +20,15 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VistaPrincipal
      */
+    VistaTabla viewTable;
     ControladorPrincipal controlado;
     Funciones funciones = new Funciones();
 
     public VistaPrincipal() {
         initComponents();
-        controlado = new ControladorPrincipal(this, funciones);
+        viewTable = new VistaTabla(); 
+        controlado = new ControladorPrincipal(this, viewTable, funciones);
 
-        btnCompletar.setVisible(false);
-        btnEliminar.setVisible(false);
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        tablaTareas.setDefaultRenderer(Object.class, centerRenderer);
     }
 
     /**
@@ -51,12 +47,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTareas = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaTareas = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnCompletar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,30 +57,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel1.setText("GESTOR DE TAREAS");
 
         jLabel2.setText("Agregar Tarea");
-
-        tablaTareas.setAutoCreateRowSorter(true);
-        tablaTareas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Tarea", "Estado"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaTareas);
-        if (tablaTareas.getColumnModel().getColumnCount() > 0) {
-            tablaTareas.getColumnModel().getColumn(0).setResizable(false);
-            tablaTareas.getColumnModel().getColumn(1).setResizable(false);
-            tablaTareas.getColumnModel().getColumn(2).setResizable(false);
-        }
 
         btnAgregar.setBackground(new java.awt.Color(76, 175, 80));
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,29 +89,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCompletar.setBackground(new java.awt.Color(30, 136, 229));
-        btnCompletar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCompletar.setText("Completar");
-        btnCompletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCompletar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCompletarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCompletarMouseExited(evt);
-            }
-        });
-
-        btnEliminar.setBackground(new java.awt.Color(229, 57, 53));
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEliminarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEliminarMouseExited(evt);
+        btnMostrar.setText("Mostrar Datos");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
             }
         });
 
@@ -150,15 +100,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 138, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -173,12 +119,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalir)
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(btnCompletar)
-                .addGap(58, 58, 58)
-                .addComponent(btnEliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnMostrar)
+                .addGap(236, 236, 236))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,13 +134,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
                     .addComponent(txtTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCompletar)
-                    .addComponent(btnEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btnMostrar)
+                .addGap(12, 12, 12)
                 .addComponent(btnSalir)
                 .addContainerGap())
         );
@@ -204,26 +144,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCompletarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompletarMouseEntered
-        // TODO add your handling code here:
-        btnCompletar.setBackground(new Color(25, 118, 210));
-    }//GEN-LAST:event_btnCompletarMouseEntered
-
-    private void btnCompletarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompletarMouseExited
-        // TODO add your handling code here:
-        btnCompletar.setBackground(new Color(30, 136, 229));
-    }//GEN-LAST:event_btnCompletarMouseExited
-
-    private void btnEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseEntered
-        // TODO add your handling code here:
-        btnEliminar.setBackground(new Color(198, 40, 40));
-    }//GEN-LAST:event_btnEliminarMouseEntered
-
-    private void btnEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseExited
-        // TODO add your handling code here:
-        btnEliminar.setBackground(new Color(229, 57, 53));
-    }//GEN-LAST:event_btnEliminarMouseExited
 
     private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
         // TODO add your handling code here:
@@ -234,6 +154,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnSalir.setBackground(new Color(106, 27, 154));
     }//GEN-LAST:event_btnSalirMouseExited
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        // TODO add your handling code here:
+        viewTable.setInterfaz(this);
+        viewTable.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnAgregarMouseEntered
         // TODO add your handling code here:
@@ -291,6 +218,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void setVistaTabla(VistaTabla tabla){
+        this.viewTable = tabla;
+    }
 
     public String getTxtAgregar() {
         return txtTareas.getText();
@@ -303,32 +234,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton getBtnAgregar() {
         return btnAgregar;
     }
-
-    public javax.swing.JButton getBtnCompletar() {
-        return btnCompletar;
+    
+    public javax.swing.JButton getBtnMostrar() {
+        return btnMostrar;
     }
-
-    public javax.swing.JButton getBtnEliminar() {
-        return btnEliminar;
-    }
-
+    
     public javax.swing.JButton getBtnSalir() {
         return btnSalir;
     }
 
-    public javax.swing.JTable getTablaTareas() {
-        return tablaTareas;
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnCompletar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaTareas;
     private javax.swing.JTextField txtTareas;
     // End of variables declaration//GEN-END:variables
 }

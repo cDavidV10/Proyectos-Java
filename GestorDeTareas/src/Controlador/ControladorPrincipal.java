@@ -7,6 +7,7 @@ package Controlador;
 import Funciones.Funciones;
 import Funciones.Tareas;
 import Vista.VistaPrincipal;
+import Vista.VistaTabla;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,40 +20,23 @@ import javax.swing.table.DefaultTableModel;
  * @author cdavi
  */
 public class ControladorPrincipal implements ActionListener {
-    private Vista.VistaPrincipal interfaz;
+    private VistaPrincipal interfaz;
+    private VistaTabla viewTabla = new VistaTabla();
     private Funciones funciones = new Funciones();
-    public int filaSeleccionada, cantidad = 0;
+    public int filaSeleccionada, cantidad = 0, datosIniciales, datosFinales;
     private DefaultTableModel tabla = new DefaultTableModel();
     Tareas tarea;
 
-    public ControladorPrincipal(VistaPrincipal interfaz, Funciones funciones) {
+    public ControladorPrincipal(VistaPrincipal interfaz, VistaTabla viewTabla, Funciones funciones) {
         this.interfaz = interfaz;
         this.funciones = funciones;
+        this.viewTabla = viewTabla;
 
         interfaz.getBtnAgregar().addActionListener(this);
         interfaz.getBtnSalir().addActionListener(this);
-        interfaz.getBtnCompletar().addActionListener(this);
-        interfaz.getBtnEliminar().addActionListener(this);
 
-        limpiarBtn();
 
-        filaSeleccionada = -1;
-
-        interfaz.getTablaTareas().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) {
-                filaSeleccionada = interfaz.getTablaTareas().getSelectedRow();
-
-                if (filaSeleccionada == -1) {
-                    interfaz.getTablaTareas().clearSelection();
-                    limpiarBtn();
-                } else {
-                    interfaz.getBtnCompletar().setVisible(true);
-                    interfaz.getBtnEliminar().setVisible(true);
-                }
-            }
-
-        });
+        
     }
 
     @Override
@@ -63,27 +47,21 @@ public class ControladorPrincipal implements ActionListener {
                 return;
             }
             
+            datosIniciales = funciones.sizeData();
             cantidad++;
             String id = funciones.generarID(cantidad);
             String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
-            
+
             tarea = new Tareas(id, txt, "Incompleta");
             funciones.llenarDatos(tarea);
-            funciones.definirTabla(interfaz);
-            this.limpiarBtn();
+            funciones.definirTabla(viewTabla);
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
-        }
-
-        if (e.getSource() == interfaz.getBtnCompletar()) {
-            interfaz.getTablaTareas().setValueAt("Completada", filaSeleccionada, 2);
-        }
-
-        if (e.getSource() == interfaz.getBtnEliminar()) {
-            if (filaSeleccionada >= 0) {
-
-                DefaultTableModel modelo = (DefaultTableModel) interfaz.getTablaTareas().getModel();
-                modelo.removeRow(filaSeleccionada);
+            
+            datosFinales = funciones.sizeData();
+            
+            if(datosFinales > datosIniciales){
+                JOptionPane.showMessageDialog(interfaz, "Tarea Agregada correctamente");
             }
         }
 
@@ -91,10 +69,6 @@ public class ControladorPrincipal implements ActionListener {
             System.exit(0);
         }
     }
-    
-    public void limpiarBtn(){
-        interfaz.getBtnCompletar().setVisible(false);
-        interfaz.getBtnEliminar().setVisible(false);
-    }
+
 
 }

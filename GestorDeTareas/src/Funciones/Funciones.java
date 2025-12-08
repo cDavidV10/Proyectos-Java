@@ -5,7 +5,7 @@
 package Funciones;
 
 import javax.swing.table.DefaultTableModel;
-import Vista.VistaPrincipal;
+import Vista.VistaTabla;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,6 @@ import java.util.List;
 public class Funciones {
 
     private DefaultTableModel tabla = new DefaultTableModel();
-    private VistaPrincipal interfaz;
     List<Tareas> tareas = new ArrayList<>();
 
     public void llenarDatos(Tareas info) {
@@ -24,10 +23,10 @@ public class Funciones {
         tareas.add(info);
     }
 
-    public void definirTabla(VistaPrincipal interfaz) {
+    public void definirTabla(VistaTabla interfaz) {
 
         String[] columnas = { "Codigo", "Tarea", "Estado" };
-        
+
         tabla.setRowCount(0);
         tabla.setColumnIdentifiers(columnas);
         interfaz.getTablaTareas().setModel(tabla);
@@ -64,6 +63,11 @@ public class Funciones {
             return "Tarea-0" + cantidad;
         }
         return "Tarea-" + cantidad;
+    }
+    
+    public int sizeData(){
+    
+        return tareas.size();
     }
 
 }
