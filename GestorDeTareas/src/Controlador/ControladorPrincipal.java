@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author cdavi
  */
-public final class ControladorPrincipal implements ActionListener {
+public class ControladorPrincipal implements ActionListener {
     private Vista.VistaPrincipal interfaz;
     private Funciones funciones = new Funciones();
     public int filaSeleccionada, cantidad = 0;
@@ -34,27 +34,23 @@ public final class ControladorPrincipal implements ActionListener {
 
         limpiarBtn();
 
+        filaSeleccionada = -1;
 
         interfaz.getTablaTareas().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
+                filaSeleccionada = interfaz.getTablaTareas().getSelectedRow();
 
-                int fila = interfaz.getTablaTareas().rowAtPoint(evt.getPoint());
-                System.out.println(fila);
-
-                if (fila == -1) {
+                if (filaSeleccionada == -1) {
                     interfaz.getTablaTareas().clearSelection();
-                    filaSeleccionada = -1;
                     limpiarBtn();
                 } else {
-                    filaSeleccionada = fila;
                     interfaz.getBtnCompletar().setVisible(true);
                     interfaz.getBtnEliminar().setVisible(true);
                 }
             }
 
         });
-
     }
 
     @Override
@@ -67,7 +63,7 @@ public final class ControladorPrincipal implements ActionListener {
             String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
             cantidad++;
             funciones.definirTabla(interfaz, txt, cantidad);
-            limpiarBtn();
+            this.limpiarBtn();
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
         }
