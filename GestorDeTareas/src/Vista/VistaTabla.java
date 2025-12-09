@@ -61,6 +61,7 @@ public class VistaTabla extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -189,12 +190,11 @@ public class VistaTabla extends javax.swing.JFrame {
                                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGap(261, 261, 261)
-                                                .addComponent(btnSiguiente)
-                                                .addGap(62, 62, 62)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(btnAnterior)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnSiguiente)
+                                                .addGap(124, 124, 124)
                                                 .addComponent(lbPaginaActual, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                         21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -268,6 +268,8 @@ public class VistaTabla extends javax.swing.JFrame {
         interfaz.setVistaTabla(this);
         interfaz.setVisible(true);
         this.setVisible(false);
+        btnCompletar.setVisible(false);
+        btnEliminar.setVisible(false);
     }// GEN-LAST:event_btnRegresarActionPerformed
 
     /**
