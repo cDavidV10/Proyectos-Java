@@ -17,6 +17,7 @@ public class Funciones {
 
     private DefaultTableModel tabla = new DefaultTableModel();
     List<Tareas> tareas = new ArrayList<>();
+    public int paginaActual = 0, paginaTotal = 0, datosMostrados = 5;
 
     public void llenarDatos(Tareas info) {
 
@@ -27,11 +28,27 @@ public class Funciones {
 
         String[] columnas = { "Codigo", "Tarea", "Estado" };
 
-        tabla.setRowCount(0);
         tabla.setColumnIdentifiers(columnas);
         interfaz.getTablaTareas().setModel(tabla);
 
-        for (Tareas dato : tareas) {
+    }
+
+    public void cargarDatos(VistaTabla interfaz) {
+
+        tabla.setRowCount(0);
+        int inicio = paginaActual * datosMostrados;
+        int fin = inicio + datosMostrados;
+
+        if (fin > tareas.size()) {
+            fin = tareas.size();
+        }
+
+        interfaz.setPaginaFinal(String.valueOf(paginasTotales()));
+        interfaz.setPaginaActual(String.valueOf(paginaActual + 1));
+
+        for (int i = inicio; i < fin; i++) {
+            Tareas dato = tareas.get(i);
+
             Object[] datos = {
                     dato.getId(),
                     dato.getInfo(),
@@ -40,8 +57,8 @@ public class Funciones {
             };
 
             tabla.addRow(datos);
-        }
 
+        }
     }
 
     public String eliminarEspacios(String txt) {
@@ -64,9 +81,24 @@ public class Funciones {
         }
         return "Tarea-" + cantidad;
     }
-    
-    public int sizeData(){
-    
+
+    public void setPaginaActual(int pagina) {
+
+        paginaActual = pagina;
+    }
+
+    public int paginasTotales() {
+
+        if (sizeData() % 5 == 0) {
+
+            return paginaTotal = sizeData() / datosMostrados;
+        }
+
+        return paginaTotal = (sizeData() / datosMostrados) + 1;
+    }
+
+    public int sizeData() {
+
         return tareas.size();
     }
 

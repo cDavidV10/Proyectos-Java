@@ -35,8 +35,8 @@ public class ControladorPrincipal implements ActionListener {
         interfaz.getBtnAgregar().addActionListener(this);
         interfaz.getBtnSalir().addActionListener(this);
 
+        funciones.definirTabla(viewTabla);
 
-        
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ControladorPrincipal implements ActionListener {
                 JOptionPane.showMessageDialog(interfaz, "El campo no puede ir vacio");
                 return;
             }
-            
+
             datosIniciales = funciones.sizeData();
             cantidad++;
             String id = funciones.generarID(cantidad);
@@ -54,13 +54,13 @@ public class ControladorPrincipal implements ActionListener {
 
             tarea = new Tareas(id, txt, "Incompleta");
             funciones.llenarDatos(tarea);
-            funciones.definirTabla(viewTabla);
+            funciones.cargarDatos(viewTabla);
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
-            
+
             datosFinales = funciones.sizeData();
-            
-            if(datosFinales > datosIniciales){
+
+            if (datosFinales > datosIniciales) {
                 JOptionPane.showMessageDialog(interfaz, "Tarea Agregada correctamente");
             }
         }
@@ -69,6 +69,5 @@ public class ControladorPrincipal implements ActionListener {
             System.exit(0);
         }
     }
-
 
 }

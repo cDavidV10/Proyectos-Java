@@ -26,7 +26,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
-        viewTable = new VistaTabla(); 
+        viewTable = new VistaTabla(funciones);
         controlado = new ControladorPrincipal(this, viewTable, funciones);
 
     }
@@ -41,7 +41,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -66,6 +67,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAgregarMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnAgregarMouseExited(evt);
             }
@@ -84,6 +86,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSalirMouseEntered(evt);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnSalirMouseExited(evt);
             }
@@ -99,68 +102,76 @@ public class VistaPrincipal extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 138, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(186, 186, 186))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(txtTareas, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(btnAgregar)
-                                .addGap(89, 89, 89))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalir)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnMostrar)
-                .addGap(236, 236, 236))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 138, Short.MAX_VALUE)
+                                                .addGroup(layout
+                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                                                layout.createSequentialGroup()
+                                                                        .addComponent(jLabel1)
+                                                                        .addGap(186, 186, 186))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout
+                                                                .createSequentialGroup()
+                                                                .addComponent(jLabel2,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 88,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(36, 36, 36)
+                                                                .addComponent(txtTareas,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 158,
+                                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(36, 36, 36)
+                                                                .addComponent(btnAgregar)
+                                                                .addGap(89, 89, 89))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(btnSalir)
+                                                .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMostrar)
+                                .addGap(236, 236, 236)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTareas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btnMostrar)
-                .addGap(12, 12, 12)
-                .addComponent(btnSalir)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1)
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtTareas, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnAgregar)
+                                        .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36,
+                                        Short.MAX_VALUE)
+                                .addComponent(btnMostrar)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnSalir)
+                                .addContainerGap()));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseEntered
+    private void btnSalirMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnSalirMouseEntered
         // TODO add your handling code here:
         btnSalir.setBackground(new Color(74, 20, 140));
-    }//GEN-LAST:event_btnSalirMouseEntered
+    }// GEN-LAST:event_btnSalirMouseEntered
 
-    private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseExited
+    private void btnSalirMouseExited(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnSalirMouseExited
         // TODO add your handling code here:
         btnSalir.setBackground(new Color(106, 27, 154));
-    }//GEN-LAST:event_btnSalirMouseExited
+    }// GEN-LAST:event_btnSalirMouseExited
 
-    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMostrarActionPerformed
         // TODO add your handling code here:
         viewTable.setInterfaz(this);
         viewTable.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnMostrarActionPerformed
+    }// GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnAgregarMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_btnAgregarMouseEntered
         // TODO add your handling code here:
@@ -218,8 +229,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void setVistaTabla(VistaTabla tabla){
+
+    public void setVistaTabla(VistaTabla tabla) {
         this.viewTable = tabla;
     }
 
@@ -234,16 +245,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JButton getBtnAgregar() {
         return btnAgregar;
     }
-    
+
     public javax.swing.JButton getBtnMostrar() {
         return btnMostrar;
     }
-    
+
     public javax.swing.JButton getBtnSalir() {
         return btnSalir;
     }
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

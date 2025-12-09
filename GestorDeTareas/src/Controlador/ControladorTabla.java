@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,7 +25,7 @@ public class ControladorTabla implements ActionListener {
     private VistaTabla viewTabla;
     private Funciones funciones;
 
-    public int filaSeleccionada, cantidad = 0;
+    public int filaSeleccionada, pagina = 0;
 
     public ControladorTabla(VistaTabla viewTabla, Funciones funciones) {
         this.viewTabla = viewTabla;
@@ -30,13 +33,14 @@ public class ControladorTabla implements ActionListener {
 
         viewTabla.getBtnCompletar().addActionListener(this);
         viewTabla.getBtnEliminar().addActionListener(this);
-        
+        viewTabla.getBtnSiguiente().addActionListener(this);
+        viewTabla.getBtnAnterior().addActionListener(this);
+
         filaSeleccionada = -1;
-        
+
         viewTabla.getTablaTareas().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                System.out.println("Hola");
                 filaSeleccionada = viewTabla.getTablaTareas().getSelectedRow();
 
                 if (filaSeleccionada == -1) {
@@ -53,6 +57,7 @@ public class ControladorTabla implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == viewTabla.getBtnCompletar()) {
+            System.out.println(filaSeleccionada);
             viewTabla.getTablaTareas().setValueAt("Completada", filaSeleccionada, 2);
         }
 
@@ -62,6 +67,27 @@ public class ControladorTabla implements ActionListener {
                 DefaultTableModel modelo = (DefaultTableModel) viewTabla.getTablaTareas().getModel();
                 modelo.removeRow(filaSeleccionada);
             }
+        }
+
+        if (e.getSource() == viewTabla.getBtnSiguiente()) {
+            if ((pagina + 1) < funciones.paginasTotales()) {
+                pagina++;
+                System.out.println(pagina);
+                funciones.setPaginaActual(pagina);
+                funciones.cargarDatos(viewTabla);
+
+            }
+
+        }
+
+        if (e.getSource() == viewTabla.getBtnAnterior()) {
+            if ((pagina + 1) > 0) {
+                pagina--;
+                funciones.setPaginaActual(pagina);
+                funciones.cargarDatos(viewTabla);
+
+            }
+
         }
 
     }
