@@ -5,6 +5,7 @@
 package Controlador;
 
 import Funciones.Funciones;
+import Funciones.GuardarFichero;
 import Funciones.Tareas;
 import Vista.VistaTabla;
 import java.awt.event.ActionEvent;
@@ -24,15 +25,18 @@ import javax.swing.table.DefaultTableModel;
 public class ControladorTabla implements ActionListener {
     private VistaTabla viewTabla;
     private Funciones funciones;
+    GuardarFichero fichero;
 
     public int filaSeleccionada, pagina = 0;
-    List<Tareas> tareas = new ArrayList<>();
+    ArrayList<Tareas> tareas = new ArrayList<>();
 
     public ControladorTabla(VistaTabla viewTabla, Funciones funciones) {
         this.viewTabla = viewTabla;
         this.funciones = funciones;
 
-        tareas = funciones.getList();
+        fichero = new GuardarFichero();
+        tareas = fichero.getList();
+        // System.out.println(tareas.size());
 
         viewTabla.getBtnCompletar().addActionListener(this);
         viewTabla.getBtnEliminar().addActionListener(this);
@@ -55,6 +59,7 @@ public class ControladorTabla implements ActionListener {
             }
 
         });
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -66,11 +71,13 @@ public class ControladorTabla implements ActionListener {
                 tareas.get(modificacion).setEstado("Completada");
             } else {
                 modificacion = filaSeleccionada;
-                System.out.println("Fila seleccionada" + filaSeleccionada);
-                System.out.println("Modificacion " + modificacion);
                 tareas.get(filaSeleccionada).setEstado("Completada");
             }
-            funciones.setList(tareas);
+            for (Tareas tareas2 : tareas) {
+                System.out.println(tareas2.toCsv());
+            }
+            System.out.println(tareas.size());
+            fichero.setList(tareas);
             funciones.cargarDatos(viewTabla);
         }
 

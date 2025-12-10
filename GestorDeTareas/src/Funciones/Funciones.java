@@ -99,11 +99,6 @@ public class Funciones {
         return tareas.size();
     }
 
-    public List<Tareas> getList() {
-
-        return tareas;
-    }
-
     public void setList(List<Tareas> datosActualozados) {
 
         tareas = datosActualozados;

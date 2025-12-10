@@ -67,9 +67,17 @@ public class GuardarFichero {
         return tareas.size();
     }
 
-    public void setList(ArrayList<Tareas> datosActualizados) {
+    public ArrayList<Tareas> getList() {
+        llenarArray();
+        return tareas;
+    }
 
-        tareas = datosActualizados;
+    public void setList(ArrayList<Tareas> datosActualizados) {
+        ArrayList<Tareas> aux = new ArrayList<>();
+        aux.addAll(datosActualizados);
+        tareas.clear();
+        tareas.addAll(aux);
+        guardarDatos();
     }
 
     public ArrayList<Tareas> getInfo() {
