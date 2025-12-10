@@ -17,12 +17,8 @@ public class Funciones {
 
     private DefaultTableModel tabla = new DefaultTableModel();
     List<Tareas> tareas = new ArrayList<>();
+    GuardarFichero fichero = new GuardarFichero();
     public int paginaActual = 0, paginaTotal = 0, datosMostrados = 5;
-
-    public void llenarDatos(Tareas info) {
-
-        tareas.add(info);
-    }
 
     public void definirTabla(VistaTabla interfaz) {
 
@@ -35,6 +31,7 @@ public class Funciones {
 
     public void cargarDatos(VistaTabla interfaz) {
 
+        tareas = fichero.getInfo();
         tabla.setRowCount(0);
         int inicio = paginaActual * datosMostrados;
         int fin = inicio + datosMostrados;

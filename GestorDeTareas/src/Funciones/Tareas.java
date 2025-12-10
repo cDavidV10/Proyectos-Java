@@ -13,14 +13,12 @@ public class Tareas {
     private String info;
     private String estado;
 
-
     public Tareas(String id, String info, String estado) {
         this.id = id;
         this.info = info;
         this.estado = estado;
     }
-    
-    
+
     public String getId() {
         return id;
     }
@@ -44,6 +42,10 @@ public class Tareas {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
+
+    public String toCsv() {
+
+        return String.format("%s,%s,%s\n", id, info, estado);
+    }
+
 }

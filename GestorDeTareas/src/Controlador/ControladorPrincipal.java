@@ -5,6 +5,7 @@
 package Controlador;
 
 import Funciones.Funciones;
+import Funciones.GuardarFichero;
 import Funciones.Tareas;
 import Vista.VistaPrincipal;
 import Vista.VistaTabla;
@@ -23,8 +24,9 @@ public class ControladorPrincipal implements ActionListener {
     private VistaPrincipal interfaz;
     private VistaTabla viewTabla = new VistaTabla();
     private Funciones funciones = new Funciones();
-    public int filaSeleccionada, cantidad = 0, datosIniciales, datosFinales;
+    public int filaSeleccionada, cantidad, datosIniciales, datosFinales;
     private DefaultTableModel tabla = new DefaultTableModel();
+    GuardarFichero fichero;
     Tareas tarea;
 
     public ControladorPrincipal(VistaPrincipal interfaz, VistaTabla viewTabla, Funciones funciones) {
@@ -34,8 +36,10 @@ public class ControladorPrincipal implements ActionListener {
 
         interfaz.getBtnAgregar().addActionListener(this);
         interfaz.getBtnSalir().addActionListener(this);
-
+        fichero = new GuardarFichero();
         funciones.definirTabla(viewTabla);
+
+        funciones.cargarDatos(viewTabla);
 
     }
 
@@ -47,18 +51,18 @@ public class ControladorPrincipal implements ActionListener {
                 return;
             }
 
-            datosIniciales = funciones.sizeData();
-            cantidad++;
+            cantidad = fichero.getSize() + 1;
+            datosIniciales = fichero.getSize();
             String id = funciones.generarID(cantidad);
             String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
 
             tarea = new Tareas(id, txt, "Incompleta");
-            funciones.llenarDatos(tarea);
+            fichero.llenarDatos(tarea);
             funciones.cargarDatos(viewTabla);
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
 
-            datosFinales = funciones.sizeData();
+            datosFinales = fichero.getSize();
 
             if (datosFinales > datosIniciales) {
                 JOptionPane.showMessageDialog(interfaz, "Tarea Agregada correctamente");
