@@ -27,7 +27,7 @@ public class ControladorTabla implements ActionListener {
     private Funciones funciones;
     GuardarFichero fichero;
 
-    public int filaSeleccionada, pagina = 0;
+    public int filaSeleccionada, pagina = 1;
     ArrayList<Tareas> tareas = new ArrayList<>();
 
     public ControladorTabla(VistaTabla viewTabla, Funciones funciones) {
@@ -102,7 +102,8 @@ public class ControladorTabla implements ActionListener {
         }
 
         if (e.getSource() == viewTabla.getBtnSiguiente()) {
-            if ((pagina + 1) < funciones.paginasTotales()) {
+            System.out.println(pagina);
+            if (pagina < funciones.paginasTotales()) {
                 pagina++;
                 funciones.setPaginaActual(pagina);
                 funciones.cargarDatos(viewTabla);
@@ -112,6 +113,7 @@ public class ControladorTabla implements ActionListener {
         }
 
         if (e.getSource() == viewTabla.getBtnAnterior()) {
+
             if ((pagina + 1) > 0) {
                 pagina--;
                 funciones.setPaginaActual(pagina);

@@ -5,6 +5,8 @@
 package Funciones;
 
 import javax.swing.table.DefaultTableModel;
+
+import Vista.VistaPrincipal;
 import Vista.VistaTabla;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,8 @@ public class Funciones {
         interfaz.setPaginaFinal(String.valueOf(paginasTotales()));
         interfaz.setPaginaActual(String.valueOf(paginaActual + 1));
 
+        ocultarBtn(interfaz);
+
         for (int i = inicio; i < fin; i++) {
             Tareas dato = tareas.get(i);
 
@@ -79,9 +83,24 @@ public class Funciones {
         return "Tarea-" + cantidad;
     }
 
-    public void setPaginaActual(int pagina) {
+    public void ocultarBtn(VistaTabla interfaz) {
+        if ((paginaActual + 1) == 1) {
+            interfaz.getBtnAnterior().setVisible(false);
+        } else {
 
-        paginaActual = pagina;
+            interfaz.getBtnAnterior().setVisible(true);
+        }
+
+        if ((paginaActual + 1) >= paginasTotales()) {
+            interfaz.getBtnSiguiente().setVisible(false);
+        } else {
+            interfaz.getBtnSiguiente().setVisible(true);
+
+        }
+    }
+
+    public void setPaginaActual(int pagina) {
+        paginaActual = pagina - 1;
     }
 
     public int paginasTotales() {
