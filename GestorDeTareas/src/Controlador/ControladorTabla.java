@@ -36,7 +36,6 @@ public class ControladorTabla implements ActionListener {
 
         fichero = new GuardarFichero();
         tareas = fichero.getList();
-        // System.out.println(tareas.size());
 
         viewTabla.getBtnCompletar().addActionListener(this);
         viewTabla.getBtnEliminar().addActionListener(this);
@@ -73,36 +72,32 @@ public class ControladorTabla implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == viewTabla.getBtnCompletar()) {
-            int modificacion;
-            if (pagina >= 1) {
-                modificacion = filaSeleccionada + 5;
-                tareas.get(modificacion).setEstado("Completada");
+            ArrayList<Tareas> lista = fichero.getList();
+            int index = pagina * 5 + filaSeleccionada;
+
+            if (filaSeleccionada >= 0 && index >= 0 && index < lista.size()) {
+                lista.get(index).setEstado("Completada");
+                fichero.setList(lista);
+                funciones.cargarDatos(viewTabla);
             } else {
-                modificacion = filaSeleccionada;
-                tareas.get(filaSeleccionada).setEstado("Completada");
+                System.out.println("Índice fuera de rango al completar: fila=" + filaSeleccionada + " index=" + index
+                        + " size=" + lista.size());
             }
-            for (Tareas tareas2 : tareas) {
-                System.out.println(tareas2.toCsv());
-            }
-            System.out.println(tareas.size());
-            fichero.setList(tareas);
-            funciones.cargarDatos(viewTabla);
         }
 
         if (e.getSource() == viewTabla.getBtnEliminar()) {
             if (filaSeleccionada >= 0) {
+                ArrayList<Tareas> lista = fichero.getList();
+                int index = pagina * 5 + filaSeleccionada;
 
-                int eliminacion;
-
-                if (pagina >= 1) {
-                    eliminacion = filaSeleccionada + 5;
-                    tareas.remove(eliminacion);
+                if (index >= 0 && index < lista.size()) {
+                    lista.remove(index);
+                    fichero.setList(lista);
+                    funciones.cargarDatos(viewTabla);
                 } else {
-                    eliminacion = filaSeleccionada;
-                    tareas.remove(eliminacion);
+                    System.out.println("Índice fuera de rango al eliminar: fila=" + filaSeleccionada + " index=" + index
+                            + " size=" + lista.size());
                 }
-                funciones.setList(tareas);
-                funciones.cargarDatos(viewTabla);
             }
         }
 
