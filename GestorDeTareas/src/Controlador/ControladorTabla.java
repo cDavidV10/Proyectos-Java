@@ -60,6 +60,14 @@ public class ControladorTabla implements ActionListener {
 
         });
 
+        viewTabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                viewTabla.getTablaTareas().setColumnSelectionAllowed(false);
+                viewTabla.getTablaTareas().setCellSelectionEnabled(false);
+                limpiarBtn();
+            }
+        });
     }
 
     public void actionPerformed(ActionEvent e) {
