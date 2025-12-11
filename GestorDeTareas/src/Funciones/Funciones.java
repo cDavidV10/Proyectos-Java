@@ -34,24 +34,24 @@ public class Funciones {
 
     public void cargarDatos(VistaTabla interfaz, boolean filtro) {
 
-        tareas = fichero.getInfo();
+        if (!filtro) {
+            tareas = fichero.getInfo();
+        } else {
+            Filtro();
+        }
+
+        if (tareas.size() == 0) {
+            JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
+            tareas = fichero.getInfo();
+            interfaz.getCheckBox().setSelected(false);
+        }
+
         tabla.setRowCount(0);
         int inicio = paginaActual * datosMostrados;
         int fin = inicio + datosMostrados;
 
         if (fin > tareas.size()) {
             fin = tareas.size();
-        }
-
-        if (filtro) {
-            Filtro();
-
-            if (tareas.size() == 0) {
-                JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
-                tareas = fichero.getInfo();
-                interfaz.getCheckBox().setSelected(false);
-
-            }
         }
         interfaz.setPaginaFinal(String.valueOf(paginasTotales()));
         interfaz.setPaginaActual(String.valueOf(paginaActual + 1));
