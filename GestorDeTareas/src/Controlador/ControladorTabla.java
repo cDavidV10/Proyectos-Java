@@ -112,6 +112,7 @@ public class ControladorTabla implements ActionListener {
         }
 
         if (e.getSource() == viewTabla.getBtnEliminar()) {
+            int opcion = confirmar();
             if (filaSeleccionada >= 0) {
                 ArrayList<Tareas> lista = fichero.getList();
                 int index = (pagina - 1) * 5 + filaSeleccionada;
@@ -126,19 +127,23 @@ public class ControladorTabla implements ActionListener {
                             break;
                         }
                     }
-                    lista.remove(indexReal);
-                    fichero.setList(lista);
-                    funciones.cargarDatos(viewTabla, filtroActivo);
+
+                    if (opcion == JOptionPane.YES_OPTION) {
+
+                        lista.remove(indexReal);
+                        fichero.setList(lista);
+                        funciones.cargarDatos(viewTabla, filtroActivo);
+                    }
                     return;
                 }
 
                 if (index >= 0 && index < lista.size()) {
-                    System.out.println("entra");
+                    if (opcion == JOptionPane.YES_OPTION) {
 
-                    System.out.println(lista.get(index).toCsv());
-                    lista.remove(index);
-                    fichero.setList(lista);
-                    funciones.cargarDatos(viewTabla, filtroActivo);
+                        lista.remove(index);
+                        fichero.setList(lista);
+                        funciones.cargarDatos(viewTabla, filtroActivo);
+                    }
                 } else {
                     System.out.println("Índice fuera de rango al eliminar: fila=" +
                             filaSeleccionada + " index=" + index
@@ -171,6 +176,14 @@ public class ControladorTabla implements ActionListener {
 
         }
 
+    }
+
+    public int confirmar() {
+        return JOptionPane.showConfirmDialog(viewTabla,
+                "¿Está seguro de eliminar tarea? Esta acción es irreversible.",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
     }
 
     public void limpiarCheckBox() {
