@@ -73,7 +73,7 @@ public class ControladorTabla implements ActionListener {
 
         if (e.getSource() == viewTabla.getBtnCompletar()) {
             ArrayList<Tareas> lista = fichero.getList();
-            int index = pagina * 5 + filaSeleccionada;
+            int index = (pagina - 1) * 5 + filaSeleccionada;
 
             if (filaSeleccionada >= 0 && index >= 0 && index < lista.size()) {
                 lista.get(index).setEstado("Completada");
@@ -88,7 +88,7 @@ public class ControladorTabla implements ActionListener {
         if (e.getSource() == viewTabla.getBtnEliminar()) {
             if (filaSeleccionada >= 0) {
                 ArrayList<Tareas> lista = fichero.getList();
-                int index = pagina * 5 + filaSeleccionada;
+                int index = (pagina - 1) * 5 + filaSeleccionada;
 
                 if (index >= 0 && index < lista.size()) {
                     lista.remove(index);

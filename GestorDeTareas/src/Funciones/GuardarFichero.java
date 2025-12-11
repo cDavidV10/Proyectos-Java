@@ -70,9 +70,6 @@ public class GuardarFichero {
     public int getLastId() {
         tareas.clear();
         leerDatos();
-
-        System.out.println(tareas.size());
-
         if (tareas.size() == 0) {
             return 0;
         }
