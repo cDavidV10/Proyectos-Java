@@ -57,6 +57,11 @@ public class ControladorTabla implements ActionListener {
                     viewTabla.getBtnCompletar().setVisible(true);
                     viewTabla.getBtnEliminar().setVisible(true);
                 }
+
+                if (filtroActivo) {
+                    viewTabla.getBtnCompletar().setVisible(false);
+
+                }
             }
 
         });
@@ -77,10 +82,17 @@ public class ControladorTabla implements ActionListener {
             if (viewTabla.getCheckBox().isSelected()) {
                 filtroActivo = true;
                 funciones.Filtro();
+                pagina = 1;
+                limpiarBtn();
+                funciones.setPaginaActual(pagina);
                 funciones.cargarDatos(viewTabla, filtroActivo);
             } else {
                 filtroActivo = false;
+                funciones.setList(fichero.getList());
+                pagina = 1;
+                funciones.setPaginaActual(pagina);
                 funciones.cargarDatos(viewTabla, filtroActivo);
+                limpiarBtn();
             }
 
         }
