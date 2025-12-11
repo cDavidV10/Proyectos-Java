@@ -4,6 +4,7 @@
  */
 package Funciones;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Vista.VistaPrincipal;
@@ -18,7 +19,7 @@ import java.util.List;
 public class Funciones {
 
     private DefaultTableModel tabla = new DefaultTableModel();
-    List<Tareas> tareas = new ArrayList<>();
+    ArrayList<Tareas> tareas = new ArrayList<>();
     GuardarFichero fichero = new GuardarFichero();
     public int paginaActual = 0, paginaTotal = 0, datosMostrados = 5;
 
@@ -31,7 +32,7 @@ public class Funciones {
 
     }
 
-    public void cargarDatos(VistaTabla interfaz) {
+    public void cargarDatos(VistaTabla interfaz, boolean filtro) {
 
         tareas = fichero.getInfo();
         tabla.setRowCount(0);
@@ -42,6 +43,16 @@ public class Funciones {
             fin = tareas.size();
         }
 
+        if (filtro) {
+            Filtro();
+
+            if (tareas.size() == 0) {
+                JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
+                tareas = fichero.getInfo();
+                interfaz.getCheckBox().setSelected(false);
+
+            }
+        }
         interfaz.setPaginaFinal(String.valueOf(paginasTotales()));
         interfaz.setPaginaActual(String.valueOf(paginaActual + 1));
 
@@ -60,6 +71,19 @@ public class Funciones {
             tabla.addRow(datos);
 
         }
+    }
+
+    public void Filtro() {
+        ArrayList<Tareas> aux = new ArrayList<>();
+        aux.addAll(tareas);
+        tareas.clear();
+        for (Tareas dato : aux) {
+            if (dato.getEstado().equals("Completada")) {
+
+                tareas.add(dato);
+            }
+        }
+
     }
 
     public String eliminarEspacios(String txt) {
@@ -118,7 +142,7 @@ public class Funciones {
         return tareas.size();
     }
 
-    public void setList(List<Tareas> datosActualozados) {
+    public void setList(ArrayList<Tareas> datosActualozados) {
 
         tareas = datosActualozados;
     }

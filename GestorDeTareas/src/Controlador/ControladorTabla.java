@@ -28,6 +28,7 @@ public class ControladorTabla implements ActionListener {
     GuardarFichero fichero;
 
     public int filaSeleccionada, pagina = 1;
+    public boolean filtroActivo = false;
     ArrayList<Tareas> tareas = new ArrayList<>();
 
     public ControladorTabla(VistaTabla viewTabla, Funciones funciones) {
@@ -41,6 +42,7 @@ public class ControladorTabla implements ActionListener {
         viewTabla.getBtnEliminar().addActionListener(this);
         viewTabla.getBtnSiguiente().addActionListener(this);
         viewTabla.getBtnAnterior().addActionListener(this);
+        viewTabla.getCheckBox().addActionListener(this);
 
         filaSeleccionada = -1;
 
@@ -71,6 +73,18 @@ public class ControladorTabla implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
+        if (e.getSource() == viewTabla.getCheckBox()) {
+            if (viewTabla.getCheckBox().isSelected()) {
+                filtroActivo = true;
+                funciones.Filtro();
+                funciones.cargarDatos(viewTabla, filtroActivo);
+            } else {
+                filtroActivo = false;
+                funciones.cargarDatos(viewTabla, filtroActivo);
+            }
+
+        }
+
         if (e.getSource() == viewTabla.getBtnCompletar()) {
             ArrayList<Tareas> lista = fichero.getList();
             int index = (pagina - 1) * 5 + filaSeleccionada;
@@ -78,7 +92,7 @@ public class ControladorTabla implements ActionListener {
             if (filaSeleccionada >= 0 && index >= 0 && index < lista.size()) {
                 lista.get(index).setEstado("Completada");
                 fichero.setList(lista);
-                funciones.cargarDatos(viewTabla);
+                funciones.cargarDatos(viewTabla, filtroActivo);
             } else {
                 System.out.println("Índice fuera de rango al completar: fila=" + filaSeleccionada + " index=" + index
                         + " size=" + lista.size());
@@ -93,7 +107,7 @@ public class ControladorTabla implements ActionListener {
                 if (index >= 0 && index < lista.size()) {
                     lista.remove(index);
                     fichero.setList(lista);
-                    funciones.cargarDatos(viewTabla);
+                    funciones.cargarDatos(viewTabla, filtroActivo);
                 } else {
                     System.out.println("Índice fuera de rango al eliminar: fila=" + filaSeleccionada + " index=" + index
                             + " size=" + lista.size());
@@ -102,27 +116,33 @@ public class ControladorTabla implements ActionListener {
         }
 
         if (e.getSource() == viewTabla.getBtnSiguiente()) {
-            System.out.println(pagina);
+            limpiarCheckBox();
             if (pagina < funciones.paginasTotales()) {
                 pagina++;
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla);
+                funciones.cargarDatos(viewTabla, filtroActivo);
 
             }
 
         }
 
         if (e.getSource() == viewTabla.getBtnAnterior()) {
-
+            limpiarCheckBox();
             if ((pagina + 1) > 0) {
                 pagina--;
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla);
+                funciones.cargarDatos(viewTabla, filtroActivo);
 
             }
 
         }
 
+    }
+
+    public void limpiarCheckBox() {
+        if (!viewTabla.getCheckBox().isSelected()) {
+            filtroActivo = false;
+        }
     }
 
     public void limpiarBtn() {
