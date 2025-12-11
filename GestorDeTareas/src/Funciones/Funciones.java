@@ -38,12 +38,11 @@ public class Funciones {
             tareas = fichero.getInfo();
         } else {
             Filtro();
-        }
-
-        if (tareas.size() == 0) {
-            JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
-            tareas = fichero.getInfo();
-            interfaz.getCheckBox().setSelected(false);
+            if (tareas.size() == 0) {
+                JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
+                tareas = fichero.getInfo();
+                interfaz.getCheckBox().setSelected(false);
+            }
         }
 
         tabla.setRowCount(0);
