@@ -22,6 +22,7 @@ public class Funciones {
     ArrayList<Tareas> tareas = new ArrayList<>();
     GuardarFichero fichero = new GuardarFichero();
     public int paginaActual = 0, paginaTotal = 0, datosMostrados = 5;
+    public boolean filtro;
 
     public void definirTabla(VistaTabla interfaz) {
 
@@ -41,6 +42,7 @@ public class Funciones {
             if (tareas.size() == 0) {
                 JOptionPane.showMessageDialog(interfaz, "Sin tareas Completadas");
                 tareas = fichero.getInfo();
+                filtro = false;
                 interfaz.getCheckBox().setSelected(false);
             }
         }
@@ -134,6 +136,10 @@ public class Funciones {
         }
 
         return paginaTotal = (sizeData() / datosMostrados) + 1;
+    }
+
+    public boolean getFiltro() {
+        return filtro;
     }
 
     public int sizeData() {

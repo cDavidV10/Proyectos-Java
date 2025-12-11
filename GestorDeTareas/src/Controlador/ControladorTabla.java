@@ -85,6 +85,7 @@ public class ControladorTabla implements ActionListener {
                 limpiarBtn();
                 funciones.setPaginaActual(pagina);
                 funciones.cargarDatos(viewTabla, filtroActivo);
+                filtroActivo = funciones.getFiltro();
             } else {
                 filtroActivo = false;
                 funciones.setList(fichero.getList());
