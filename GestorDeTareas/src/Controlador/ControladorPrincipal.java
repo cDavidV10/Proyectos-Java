@@ -51,14 +51,14 @@ public class ControladorPrincipal implements ActionListener {
                 return;
             }
 
-            cantidad = fichero.getSize() + 1;
+            cantidad = fichero.getLastId() + 1;
             datosIniciales = fichero.getSize();
             String id = funciones.generarID(cantidad);
             String txt = funciones.eliminarEspacios(interfaz.getTxtAgregar()).trim();
 
             tarea = new Tareas(id, txt, "Incompleta");
             fichero.llenarDatos(tarea);
-            funciones.cargarDatos(viewTabla );
+            funciones.cargarDatos(viewTabla);
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
 

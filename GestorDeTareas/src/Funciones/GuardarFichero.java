@@ -67,6 +67,22 @@ public class GuardarFichero {
         return tareas.size();
     }
 
+    public int getLastId() {
+        tareas.clear();
+        leerDatos();
+
+        System.out.println(tareas.size());
+
+        if (tareas.size() == 0) {
+            return 0;
+        }
+
+        String[] valores = tareas.get(tareas.size() - 1).getId().split("-");
+        int lastId = Integer.parseInt(valores[1]);
+
+        return lastId;
+    }
+
     public ArrayList<Tareas> getList() {
         llenarArray();
         return tareas;
