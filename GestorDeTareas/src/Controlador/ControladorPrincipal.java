@@ -39,7 +39,7 @@ public class ControladorPrincipal implements ActionListener {
         fichero = new GuardarFichero();
         funciones.definirTabla(viewTabla);
 
-        funciones.cargarDatos(viewTabla, false);
+        funciones.cargarDatos(viewTabla, false, 5);
 
     }
 
@@ -58,7 +58,7 @@ public class ControladorPrincipal implements ActionListener {
 
             tarea = new Tareas(id, txt, "Incompleta");
             fichero.llenarDatos(tarea);
-            funciones.cargarDatos(viewTabla, false);
+            funciones.cargarDatos(viewTabla, false, 5);
             filaSeleccionada = -1;
             interfaz.setTxtAgregar("");
 

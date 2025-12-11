@@ -27,7 +27,7 @@ public class ControladorTabla implements ActionListener {
     private Funciones funciones;
     GuardarFichero fichero;
 
-    public int filaSeleccionada, pagina = 1;
+    public int filaSeleccionada, pagina = 1, mostrar = 5;
     public boolean filtroActivo = false;
     ArrayList<Tareas> tareas = new ArrayList<>();
 
@@ -43,6 +43,7 @@ public class ControladorTabla implements ActionListener {
         viewTabla.getBtnSiguiente().addActionListener(this);
         viewTabla.getBtnAnterior().addActionListener(this);
         viewTabla.getCheckBox().addActionListener(this);
+        viewTabla.getCbMostrar().addActionListener(this);
 
         filaSeleccionada = -1;
 
@@ -84,27 +85,33 @@ public class ControladorTabla implements ActionListener {
                 pagina = 1;
                 limpiarBtn();
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla, filtroActivo);
+                funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
                 filtroActivo = funciones.getFiltro();
             } else {
                 filtroActivo = false;
                 funciones.setList(fichero.getList());
                 pagina = 1;
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla, filtroActivo);
+                funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
                 limpiarBtn();
             }
 
         }
 
+        if (e.getSource() == viewTabla.getCbMostrar()) {
+            String valor = viewTabla.getCbMostrar().getSelectedItem().toString();
+            mostrar = Integer.parseInt(valor);
+            funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
+        }
+
         if (e.getSource() == viewTabla.getBtnCompletar()) {
             ArrayList<Tareas> lista = fichero.getList();
-            int index = (pagina - 1) * 5 + filaSeleccionada;
+            int index = (pagina - 1) * mostrar + filaSeleccionada;
 
             if (filaSeleccionada >= 0 && index >= 0 && index < lista.size()) {
                 lista.get(index).setEstado("Completada");
                 fichero.setList(lista);
-                funciones.cargarDatos(viewTabla, filtroActivo);
+                funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
             } else {
                 System.out.println("Índice fuera de rango al completar: fila=" + filaSeleccionada + " index=" + index
                         + " size=" + lista.size());
@@ -115,7 +122,7 @@ public class ControladorTabla implements ActionListener {
             int opcion = confirmar();
             if (filaSeleccionada >= 0) {
                 ArrayList<Tareas> lista = fichero.getList();
-                int index = (pagina - 1) * 5 + filaSeleccionada;
+                int index = (pagina - 1) * mostrar + filaSeleccionada;
 
                 if (filtroActivo) {
                     ArrayList<Tareas> aux = funciones.getDatosTabla();
@@ -132,7 +139,7 @@ public class ControladorTabla implements ActionListener {
 
                         lista.remove(indexReal);
                         fichero.setList(lista);
-                        funciones.cargarDatos(viewTabla, filtroActivo);
+                        funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
                     }
                     return;
                 }
@@ -142,7 +149,7 @@ public class ControladorTabla implements ActionListener {
 
                         lista.remove(index);
                         fichero.setList(lista);
-                        funciones.cargarDatos(viewTabla, filtroActivo);
+                        funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
                     }
                 } else {
                     System.out.println("Índice fuera de rango al eliminar: fila=" +
@@ -158,7 +165,7 @@ public class ControladorTabla implements ActionListener {
             if (pagina < funciones.paginasTotales()) {
                 pagina++;
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla, filtroActivo);
+                funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
 
             }
 
@@ -170,7 +177,7 @@ public class ControladorTabla implements ActionListener {
             if ((pagina + 1) > 0) {
                 pagina--;
                 funciones.setPaginaActual(pagina);
-                funciones.cargarDatos(viewTabla, filtroActivo);
+                funciones.cargarDatos(viewTabla, filtroActivo, mostrar);
 
             }
 

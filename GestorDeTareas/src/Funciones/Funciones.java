@@ -33,7 +33,9 @@ public class Funciones {
 
     }
 
-    public void cargarDatos(VistaTabla interfaz, boolean filtro) {
+    public void cargarDatos(VistaTabla interfaz, boolean filtro, int mostrar) {
+
+        datosMostrados = mostrar;
 
         if (!filtro) {
             tareas = fichero.getInfo();
