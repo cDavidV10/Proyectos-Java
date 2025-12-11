@@ -141,6 +141,10 @@ public class Funciones {
         return tareas.size();
     }
 
+    public ArrayList<Tareas> getDatosTabla() {
+        return tareas;
+    }
+
     public void setList(ArrayList<Tareas> datosActualozados) {
 
         tareas = datosActualozados;

@@ -116,12 +116,32 @@ public class ControladorTabla implements ActionListener {
                 ArrayList<Tareas> lista = fichero.getList();
                 int index = (pagina - 1) * 5 + filaSeleccionada;
 
+                if (filtroActivo) {
+                    ArrayList<Tareas> aux = funciones.getDatosTabla();
+                    int indexReal = 0;
+
+                    for (int i = 0; i < lista.size(); i++) {
+                        if (lista.get(i).getId().equals(aux.get(index).getId())) {
+                            indexReal = i;
+                            break;
+                        }
+                    }
+                    lista.remove(indexReal);
+                    fichero.setList(lista);
+                    funciones.cargarDatos(viewTabla, filtroActivo);
+                    return;
+                }
+
                 if (index >= 0 && index < lista.size()) {
+                    System.out.println("entra");
+
+                    System.out.println(lista.get(index).toCsv());
                     lista.remove(index);
                     fichero.setList(lista);
                     funciones.cargarDatos(viewTabla, filtroActivo);
                 } else {
-                    System.out.println("Índice fuera de rango al eliminar: fila=" + filaSeleccionada + " index=" + index
+                    System.out.println("Índice fuera de rango al eliminar: fila=" +
+                            filaSeleccionada + " index=" + index
                             + " size=" + lista.size());
                 }
             }
