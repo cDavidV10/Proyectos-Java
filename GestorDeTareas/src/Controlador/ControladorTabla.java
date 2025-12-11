@@ -81,7 +81,6 @@ public class ControladorTabla implements ActionListener {
         if (e.getSource() == viewTabla.getCheckBox()) {
             if (viewTabla.getCheckBox().isSelected()) {
                 filtroActivo = true;
-                funciones.Filtro();
                 pagina = 1;
                 limpiarBtn();
                 funciones.setPaginaActual(pagina);
@@ -149,6 +148,7 @@ public class ControladorTabla implements ActionListener {
 
         if (e.getSource() == viewTabla.getBtnSiguiente()) {
             limpiarCheckBox();
+            limpiarBtn();
             if (pagina < funciones.paginasTotales()) {
                 pagina++;
                 funciones.setPaginaActual(pagina);
@@ -160,6 +160,7 @@ public class ControladorTabla implements ActionListener {
 
         if (e.getSource() == viewTabla.getBtnAnterior()) {
             limpiarCheckBox();
+            limpiarBtn();
             if ((pagina + 1) > 0) {
                 pagina--;
                 funciones.setPaginaActual(pagina);
