@@ -9,7 +9,6 @@ package Controlador;
  * @author alfar
  */
 public class Prueba {
-    
-//    /sotu    rfnklskjnclaszjk ndakksdkljf ndakksdkljfC:\Users\alfar\Desktop\AprendiendoGit\Proyectos-Java\GestorDeTareas
-    System.out.println("Prueba");
+
+    System.out.println("Regresa Valeria");
 }
